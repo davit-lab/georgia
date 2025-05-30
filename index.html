@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Georgia.ge - ყველაფერი საქართველოში</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>georgia.ge</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">მთავარი</a></li>
+                    <li><a href="#">განცხადებები</a></li>
+                    <li><a href="#">კატეგორიები</a></li>
+                    <li><a href="#">კონტაქტი</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="login-btn">შესვლა</button>
+                <button id="register-btn">რეგისტრაცია</button>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Auth Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>შესვლა</h2>
+            <form id="login-form">
+                <input type="email" placeholder="ელ. ფოსტა" required>
+                <input type="password" placeholder="პაროლი" required>
+                <button type="submit">შესვლა</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>რეგისტრაცია</h2>
+            <form id="register-form">
+                <input type="text" placeholder="სახელი" required>
+                <input type="email" placeholder="ელ. ფოსტა" required>
+                <input type="tel" placeholder="ტელეფონი" required>
+                <input type="password" placeholder="პაროლი" required>
+                <input type="password" placeholder="გაიმეორეთ პაროლი" required>
+                <button type="submit">რეგისტრაცია</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="hero">
+            <h2>იპოვე ყველაფერი საქართველოში</h2>
+            <div class="search-box">
+                <input type="text" placeholder="რას ეძებთ?">
+                <select>
+                    <option>ყველა კატეგორია</option>
+                    <option>უძრავი ქონება</option>
+                    <option>ტრანსპორტი</option>
+                    <option>სამუშაო</option>
+                </select>
+                <button>ძებნა</button>
+            </div>
+        </section>
+
+        <section class="categories">
+            <h3>კატეგორიები</h3>
+            <div class="category-grid">
+                <!-- Categories will be loaded here via JS -->
+            </div>
+        </section>
+
+        <section class="listings">
+            <h3>უახლესი განცხადებები</h3>
+            <div class="listing-grid">
+                <!-- Listings will be loaded here via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-header">
+            <span>ჩეთი</span>
+            <i class="fas fa-times close-chat"></i>
+        </div>
+        <div class="chat-messages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="დაწერეთ შეტყობინება...">
+            <button><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <div class="chat-icon">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h4>კონტაქტი</h4>
+                <p><i class="fas fa-phone"></i> +995 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> info@georgia.ge</p>
+            </div>
+            <div class="footer-section">
+                <h4>ინფორმაცია</h4>
+                <ul>
+                    <li><a href="#">ჩვენ შესახებ</a></li>
+                    <li><a href="#">წესები და პირობები</a></li>
+                    <li><a href="#">კონფიდენციალობა</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html>
