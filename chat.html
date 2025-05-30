@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ჩეთი - MarketPlace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ნავიგაცია -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">MarketPlace</a>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> უკან</a>
+                <div class="user-dropdown">
+                    <button class="user-menu-btn">
+                        <img src="https://via.placeholder.com/40" alt="პროფილი" class="profile-pic">
+                        <span class="username">მომხმარებელი</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ჩეთის კონტეინერი -->
+    <main class="chat-container">
+        <div class="chat-header">
+            <div class="product-info">
+                <img src="https://via.placeholder.com/60" alt="პროდუქტი" id="chat-product-image">
+                <div>
+                    <h3 id="chat-product-title">პროდუქტის სახელი</h3>
+                    <p id="chat-product-price">0 ₾</p>
+                </div>
+            </div>
+            <div class="seller-info">
+                <img src="https://via.placeholder.com/40" alt="გამყიდველი" id="seller-avatar">
+                <span id="seller-name">გამყიდველი</span>
+            </div>
+        </div>
+        
+        <div class="messages-container" id="messages-container">
+            <!-- შეტყობინებები დინამიურად ჩაიტვირთება -->
+        </div>
+        
+        <div class="message-input-container">
+            <input type="text" placeholder="დაწერეთ შეტყობინება..." id="message-input">
+            <button id="send-message-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
