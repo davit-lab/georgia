@@ -691,6 +691,307 @@ button {
     .hero-content h1 {
         font-size: 1.8rem;
     }
+    /* ჩეთის სტილები */
+.chat-container {
+    max-width: 800px;
+    margin: 6rem auto 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.seller-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.seller-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messages-container {
+    height: 500px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+.message {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 0.8rem 1rem;
+    border-radius: 15px;
+    position: relative;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message.sent .message-content {
+    background: var(--primary-color);
+    color: white;
+    border-bottom-right-radius: 0;
+}
+
+.message.received {
+    justify-content: flex-start;
+}
+
+.message.received .message-content {
+    background: #e9e9e9;
+    border-bottom-left-radius: 0;
+}
+
+.message-time {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.8;
+    margin-top: 0.3rem;
+    text-align: right;
+}
+
+.message-input-container {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.message-input-container input {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.message-input-container button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    margin-left: 1rem;
+    transition: background 0.3s;
+}
+
+.message-input-container button:hover {
+    background: var(--secondary-color);
+}
+
+/* პროფილის სტილები */
+.profile-container {
+    max-width: 1000px;
+    margin: 6rem auto 2rem;
+    padding: 0 1rem;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.profile-avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+.edit-avatar-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.edit-avatar-btn:hover {
+    background: var(--secondary-color);
+}
+
+.profile-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-header p {
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.edit-profile-btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    font-weight: 500;
+}
+
+.profile-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: var(--text-secondary);
+    position: relative;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.product-actions button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.edit-product-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.edit-product-btn:hover {
+    background: var(--secondary-color);
+}
+
+.delete-product-btn {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.delete-product-btn:hover {
+    background: #e9ecef;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.chat-item:hover {
+    background: #f8f9fa;
+}
+
+.chat-product-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.chat-info {
+    flex-grow: 1;
+}
+
+.chat-info h4 {
+    margin-bottom: 0.3rem;
+}
+
+.chat-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.last-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+.chat-time {
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+.no-products, .no-chats {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
     
     .modal-content {
         padding: 1.5rem;
