@@ -4,28 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Georgia.ge - ყველაფერი საქართველოში</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
 </head>
 <body>
-    <!-- Header with Navigation -->
-    <header>
+    <!-- Blue Theme Header -->
+    <header class="blue-header">
         <div class="container">
             <div class="logo">
-                <h1>georgia.ge</h1>
+                <img src="assets/logo.svg" alt="Georgia.ge" class="logo-img">
+                <h1>georgia<span>.ge</span></h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">მთავარი</a></li>
+                    <li><a href="#" class="active">მთავარი</a></li>
                     <li><a href="#">განცხადებები</a></li>
                     <li><a href="#">კატეგორიები</a></li>
-                    <li><a href="#">კონტაქტი</a></li>
+                    <li><a href="#">ბიზნესი</a></li>
+                    <li><a href="#">სერვისები</a></li>
                 </ul>
             </nav>
-            <div class="auth-buttons">
-                <button id="login-btn">შესვლა</button>
-                <button id="register-btn">რეგისტრაცია</button>
+            <div class="header-actions">
+                <button class="btn btn-outline" id="login-btn"><i class="fas fa-sign-in-alt"></i> შესვლა</button>
+                <button class="btn btn-primary" id="register-btn"><i class="fas fa-user-plus"></i> რეგისტრაცია</button>
+                <div class="user-dropdown" id="user-dropdown" style="display: none;">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-user"></i> პროფილი</a>
+                        <a href="#"><i class="fas fa-plus-circle"></i> განცხადების დამატება</a>
+                        <a href="#"><i class="fas fa-heart"></i> ფავორიტები</a>
+                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> გამოსვლა</a>
+                    </div>
+                </div>
             </div>
             <div class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -33,104 +48,449 @@
         </div>
     </header>
 
-    <!-- Auth Modals -->
+    <!-- Enhanced Auth Modals -->
     <div id="login-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content auth-modal">
             <span class="close">&times;</span>
-            <h2>შესვლა</h2>
-            <form id="login-form">
-                <input type="email" placeholder="ელ. ფოსტა" required>
-                <input type="password" placeholder="პაროლი" required>
-                <button type="submit">შესვლა</button>
+            <div class="auth-header">
+                <h2>შესვლა</h2>
+                <p>შეიყვანეთ თქვენი ელ. ფოსტა და პაროლი</p>
+            </div>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">ელ. ფოსტა</label>
+                    <input type="email" id="login-email" placeholder="example@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">პაროლი</label>
+                    <input type="password" id="login-password" placeholder="********" required>
+                    <a href="#" class="forgot-password">დაგავიწყდათ პაროლი?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">შესვლა</button>
+                <div class="auth-footer">
+                    <p>არ გაქვთ ანგარიში? <a href="#" id="switch-to-register">რეგისტრაცია</a></p>
+                </div>
             </form>
+            <div class="social-auth">
+                <p>ან შედით სოციალური ქსელით</p>
+                <div class="social-buttons">
+                    <button class="btn btn-social facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+                    <button class="btn btn-social google"><i class="fab fa-google"></i> Google</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="register-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content auth-modal">
             <span class="close">&times;</span>
-            <h2>რეგისტრაცია</h2>
-            <form id="register-form">
-                <input type="text" placeholder="სახელი" required>
-                <input type="email" placeholder="ელ. ფოსტა" required>
-                <input type="tel" placeholder="ტელეფონი" required>
-                <input type="password" placeholder="პაროლი" required>
-                <input type="password" placeholder="გაიმეორეთ პაროლი" required>
-                <button type="submit">რეგისტრაცია</button>
+            <div class="auth-header">
+                <h2>რეგისტრაცია</h2>
+                <p>შექმენით თქვენი ანგარიში</p>
+            </div>
+            <form id="register-form" class="auth-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-firstname">სახელი</label>
+                        <input type="text" id="register-firstname" placeholder="გიორგი" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-lastname">გვარი</label>
+                        <input type="text" id="register-lastname" placeholder="გიორგაძე" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">ელ. ფოსტა</label>
+                    <input type="email" id="register-email" placeholder="example@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">ტელეფონის ნომერი</label>
+                    <input type="tel" id="register-phone" placeholder="+995 5__ __ __ __" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-password">პაროლი</label>
+                        <input type="password" id="register-password" placeholder="********" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">გაიმეორეთ პაროლი</label>
+                        <input type="password" id="register-confirm" placeholder="********" required>
+                    </div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="agree-terms" required>
+                    <label for="agree-terms">ვეთანხმები <a href="#">წესებს და პირობებს</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">რეგისტრაცია</button>
+                <div class="auth-footer">
+                    <p>უკვე გაქვთ ანგარიში? <a href="#" id="switch-to-login">შესვლა</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Listing Creation Modal -->
+    <div id="create-listing-modal" class="modal">
+        <div class="modal-content listing-modal">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>განცხადების დამატება</h2>
+                <div class="steps">
+                    <div class="step active" data-step="1">1. ძირითადი ინფო</div>
+                    <div class="step" data-step="2">2. აღწერა</div>
+                    <div class="step" data-step="3">3. ფოტოები</div>
+                    <div class="step" data-step="4">4. კონტაქტი</div>
+                </div>
+            </div>
+            <form id="create-listing-form">
+                <div class="step-content" data-step="1">
+                    <div class="form-group">
+                        <label for="listing-title">სათაური*</label>
+                        <input type="text" id="listing-title" placeholder="მაგ: iPhone 13 Pro ახალი" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="listing-category">კატეგორია*</label>
+                            <select id="listing-category" required>
+                                <option value="">აირჩიეთ კატეგორია</option>
+                                <option value="electronics">ელექტრონიკა</option>
+                                <option value="property">უძრავი ქონება</option>
+                                <option value="vehicles">ტრანსპორტი</option>
+                                <option value="jobs">სამუშაო</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="listing-condition">მდგომარეობა*</label>
+                            <select id="listing-condition" required>
+                                <option value="">აირჩიეთ მდგომარეობა</option>
+                                <option value="new">ახალი</option>
+                                <option value="used">მეორადი</option>
+                                <option value="broken">დაზიანებული</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="listing-price">ფასი*</label>
+                            <input type="number" id="listing-price" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="listing-currency">ვალუტა</label>
+                            <select id="listing-currency">
+                                <option value="GEL">₾</option>
+                                <option value="USD">$</option>
+                                <option value="EUR">€</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="is-business">
+                        <label for="is-business">მე ვარ ბიზნესი/კომპანია</label>
+                    </div>
+                </div>
+                
+                <div class="step-content" data-step="2" style="display: none;">
+                    <div class="form-group">
+                        <label for="listing-description">აღწერა*</label>
+                        <textarea id="listing-description" rows="5" placeholder="დაწერეთ დეტალური აღწერა..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="listing-specs">დამატებითი მახასიათებლები</label>
+                        <div class="specs-container" id="specs-container">
+                            <!-- Specifications will be added here -->
+                        </div>
+                        <button type="button" class="btn btn-outline btn-small" id="add-spec">
+                            <i class="fas fa-plus"></i> დამატება
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="step-content" data-step="3" style="display: none;">
+                    <div class="form-group">
+                        <label>ფოტოები* (მინიმუმ 1)</label>
+                        <div class="image-upload-container">
+                            <div class="upload-area" id="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>გადაათრიეთ ფოტოები აქ ან <span>აირჩიეთ ფაილი</span></p>
+                                <input type="file" id="image-upload" multiple accept="image/*">
+                            </div>
+                            <div class="preview-container" id="preview-container">
+                                <!-- Preview images will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-content" data-step="4" style="display: none;">
+                    <div class="form-group">
+                        <label for="listing-location">მდებარეობა*</label>
+                        <div class="location-container">
+                            <input type="text" id="listing-location" placeholder="შეიყვანეთ მდებარეობა" required>
+                            <div id="location-map"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="listing-phone">საკონტაქტო ნომერი*</label>
+                        <input type="tel" id="listing-phone" placeholder="+995 5__ __ __ __" required>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="show-phone">
+                        <label for="show-phone">ნომერის ჩვენება განცხადებაზე</label>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button type="button" class="btn btn-outline" id="prev-step" disabled>უკან</button>
+                    <button type="button" class="btn btn-primary" id="next-step">შემდეგი</button>
+                    <button type="submit" class="btn btn-success" id="submit-listing" style="display: none;">გამოქვეყნება</button>
+                </div>
             </form>
         </div>
     </div>
 
     <!-- Main Content -->
     <main class="container">
-        <section class="hero">
-            <h2>იპოვე ყველაფერი საქართველოში</h2>
-            <div class="search-box">
-                <input type="text" placeholder="რას ეძებთ?">
-                <select>
-                    <option>ყველა კატეგორია</option>
-                    <option>უძრავი ქონება</option>
-                    <option>ტრანსპორტი</option>
-                    <option>სამუშაო</option>
-                </select>
-                <button>ძებნა</button>
+        <!-- Hero Section with Blue Gradient -->
+        <section class="hero blue-gradient">
+            <div class="hero-content">
+                <h2>იპოვე ყველაფერი საქართველოში</h2>
+                <p>100,000+ აქტიური განცხადება მთელს ქვეყანაში</p>
+                
+                <div class="search-box">
+                    <div class="search-input">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="რას ეძებთ?">
+                    </div>
+                    <select class="search-category">
+                        <option>ყველა კატეგორია</option>
+                        <option>უძრავი ქონება</option>
+                        <option>ტრანსპორტი</option>
+                        <option>სამუშაო</option>
+                    </select>
+                    <button class="btn btn-primary search-btn">ძებნა</button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <strong>10,000+</strong>
+                        <span>ახალი განცხადება დღეში</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>500,000+</strong>
+                        <span>დარეგისტრირებული მომხმარებელი</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>99%</strong>
+                        <span>დადებითი შეფასება</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="categories">
-            <h3>კატეგორიები</h3>
-            <div class="category-grid">
-                <!-- Categories will be loaded here via JS -->
+        <!-- Featured Categories -->
+        <section class="featured-categories">
+            <div class="section-header">
+                <h3>პოპულარული კატეგორიები</h3>
+                <a href="#" class="see-all">ყველას ნახვა <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="categories-grid">
+                <a href="#" class="category-card">
+                    <div class="category-icon blue-bg">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4>უძრავი ქონება</h4>
+                    <p>12,340 განცხადება</p>
+                </a>
+                
+                <a href="#" class="category-card">
+                    <div class="category-icon blue-bg">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h4>ტრანსპორტი</h4>
+                    <p>8,765 განცხადება</p>
+                </a>
+                
+                <a href="#" class="category-card">
+                    <div class="category-icon blue-bg">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h4>სამუშაო</h4>
+                    <p>5,432 განცხადება</p>
+                </a>
+                
+                <a href="#" class="category-card">
+                    <div class="category-icon blue-bg">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h4>ელექტრონიკა</h4>
+                    <p>7,890 განცხადება</p>
+                </a>
             </div>
         </section>
 
-        <section class="listings">
-            <h3>უახლესი განცხადებები</h3>
-            <div class="listing-grid">
-                <!-- Listings will be loaded here via JS -->
+        <!-- Recent Listings -->
+        <section class="recent-listings">
+            <div class="section-header">
+                <h3>ახალი განცხადებები</h3>
+                <a href="#" class="see-all">ყველას ნახვა <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="listings-grid">
+                <!-- Listing items will be loaded here via JS -->
+            </div>
+        </section>
+
+        <!-- Location Section with Map -->
+        <section class="location-section">
+            <div class="section-header">
+                <h3>განცხადებები რუკაზე</h3>
+                <p>იპოვეთ განცხადებები თქვენს მიმდებარედ</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="main-map"></div>
+                <div class="map-overlay">
+                    <h4>მოძებნეთ რუკაზე</h4>
+                    <div class="map-search">
+                        <input type="text" placeholder="შეიყვანეთ მდებარეობა">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="map-filters">
+                        <select>
+                            <option>ყველა კატეგორია</option>
+                            <option>უძრავი ქონება</option>
+                            <option>ტრანსპორტი</option>
+                        </select>
+                        <select>
+                            <option>ყველა ფასი</option>
+                            <option>0-500₾</option>
+                            <option>500-1000₾</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Membership -->
+        <section class="premium-section blue-gradient">
+            <div class="premium-content">
+                <div class="premium-text">
+                    <h3>გახდე პრემიუმი</h3>
+                    <p>გამოიყენე დამატებითი შესაძლებლობები და მიიღე მეტი შედეგი!</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> განცხადების ტოპში გამოჩენა</li>
+                        <li><i class="fas fa-check"></i> მეტი ფოტო და ვიდეო</li>
+                        <li><i class="fas fa-check"></i> სტატისტიკა და ანალიტიკა</li>
+                    </ul>
+                    <button class="btn btn-white">პრემიუმზე გადასვლა</button>
+                </div>
+                <div class="premium-image">
+                    <img src="assets/premium.png" alt="Premium Membership">
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Chat Widget -->
+    <!-- Enhanced Chat Widget -->
     <div class="chat-widget">
-        <div class="chat-header">
-            <span>ჩეთი</span>
-            <i class="fas fa-times close-chat"></i>
+        <div class="chat-header blue-bg">
+            <div class="chat-title">
+                <i class="fas fa-comments"></i>
+                <span>ჩეთი</span>
+            </div>
+            <div class="chat-actions">
+                <i class="fas fa-ellipsis-v"></i>
+                <i class="fas fa-times close-chat"></i>
+            </div>
         </div>
         <div class="chat-messages">
-            <!-- Messages will appear here -->
+            <div class="message-date">დღეს, 14:30</div>
+            <div class="message received">
+                <div class="message-content">
+                    <div class="message-text">გამარჯობა! როგორ შემიძლია დაგეხმაროთ?</div>
+                    <div class="message-time">14:30</div>
+                </div>
+            </div>
         </div>
         <div class="chat-input">
+            <div class="input-actions">
+                <i class="fas fa-paperclip"></i>
+                <i class="fas fa-smile"></i>
+            </div>
             <input type="text" placeholder="დაწერეთ შეტყობინება...">
-            <button><i class="fas fa-paper-plane"></i></button>
+            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-    <div class="chat-icon">
+    <div class="chat-icon blue-bg">
         <i class="fas fa-comment-dots"></i>
+        <span class="notification-badge">3</span>
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="blue-footer">
         <div class="container">
-            <div class="footer-section">
-                <h4>კონტაქტი</h4>
-                <p><i class="fas fa-phone"></i> +995 123 456 789</p>
-                <p><i class="fas fa-envelope"></i> info@georgia.ge</p>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="assets/logo-white.svg" alt="Georgia.ge">
+                        <h4>georgia.ge</h4>
+                    </div>
+                    <p>ყველაფერი საქართველოში ერთ სივრცეში</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>კომპანია</h5>
+                    <ul>
+                        <li><a href="#">ჩვენ შესახებ</a></li>
+                        <li><a href="#">კარიერა</a></li>
+                        <li><a href="#">ბლოგი</a></li>
+                        <li><a href="#">პრესა</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>ინფორმაცია</h5>
+                    <ul>
+                        <li><a href="#">დახმარება</a></li>
+                        <li><a href="#">უსაფრთხოების წესები</a></li>
+                        <li><a href="#">კონფიდენციალობა</a></li>
+                        <li><a href="#">წესები და პირობები</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>კონტაქტი</h5>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> თბილისი, საქართველო</li>
+                        <li><i class="fas fa-phone"></i> +995 32 2 12 34 56</li>
+                        <li><i class="fas fa-envelope"></i> info@georgia.ge</li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>ინფორმაცია</h4>
-                <ul>
-                    <li><a href="#">ჩვენ შესახებ</a></li>
-                    <li><a href="#">წესები და პირობები</a></li>
-                    <li><a href="#">კონფიდენციალობა</a></li>
-                </ul>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Georgia.ge. ყველა უფლება დაცულია.</p>
+                <div class="footer-links">
+                    <a href="#">წესები</a>
+                    <a href="#">კონფიდენციალობა</a>
+                    <a href="#">Cookie პოლიტიკა</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/listings.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/map.js"></script>
 </body>
 </html>
